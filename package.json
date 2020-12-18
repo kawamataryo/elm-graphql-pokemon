@@ -1,0 +1,20 @@
+{
+  "name": "elm-graphql-sample",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "ssh://git@github.com/kawamataryo/elm-graphql-sample.git",
+  "author": "kawamataryou <ba068082@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "elm-live src/Main.elm",
+    "generate-elm-types": "elm-graphql https://graphql-pokemon2.vercel.app/ --base Pokemon",
+    "build": "elm-app build"
+  },
+  "dependencies": {
+    "bulma": "^0.9.1"
+  },
+  "devDependencies": {
+    "@dillonkearns/elm-graphql": "^4.0.5",
+    "create-elm-app": "^5.22.0"
+  }
+}
