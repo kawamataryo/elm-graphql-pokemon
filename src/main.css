@@ -15,4 +15,9 @@ body {
   text-align: center;
   color: #293c4b;
   background-color: #4dc7ff;
+  min-height: 100%;
+}
+
+html {
+  height: 100%;
 }
