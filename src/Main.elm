@@ -137,7 +137,7 @@ pokemonListSelection =
         Pokemon.image
 
 
-fetchPokemonsQuery : Int -> SelectionSet (Maybe (List (Maybe Pokemon))) RootQuery
+fetchPokemonsQuery : Int -> SelectionSet Pokemons RootQuery
 fetchPokemonsQuery num =
     Query.pokemons (pokemonsRequiredArguments num) pokemonListSelection
 
