@@ -8,7 +8,6 @@ Elm App that renders a GraphQL API for [Pokemons](https://wayfair.github.io/doci
 
 ```
 $ yarn
-$ npm install -g create-elm-app
-$ elm-app start
+$ npx elm-app start
 ```
 ![](https://i.gyazo.com/c83ea40c00c2bddf3a608914fec1cf30.png)
