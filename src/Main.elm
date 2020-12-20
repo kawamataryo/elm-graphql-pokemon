@@ -43,7 +43,7 @@ init : ( Model, Cmd Msg )
 init =
     ( { pokemons = RemoteData.Loading
       }
-    , fetchPokemons 161
+    , fetchPokemons 151
     )
 
 
@@ -73,8 +73,9 @@ updatePokemonsData data model cmd =
 
 view : Model -> Html Msg
 view model =
-    div [ class Bulma.container, class Bulma.mt5 ]
-        [ h1 [ class Bulma.title, class Bulma.is1, class Bulma.mb6 ] [ text "Pokemon with elm-graphql" ]
+    div [ class Bulma.container ]
+        [ img [ src "https://i.gyazo.com/480551bded5134ddacf08616b2595717.png" ] []
+        , h1 [ class Bulma.title, class Bulma.is4, class Bulma.mb6 ] [ text "Pokemons with elm-graphql" ]
         , renderPokemons model.pokemons
         ]
 
@@ -106,7 +107,7 @@ renderPokemon maybePokemon =
                 (\pokemon ->
                     div [ class Bulma.card ]
                         [ div [ class Bulma.cardImage ]
-                            [ figure [ class Bulma.image, class Bulma.is16by9 ]
+                            [ figure [ class Bulma.image, class Bulma.is16by9, class Bulma.mx5, class Bulma.mt5 ]
                                 [ img [ src (pokemon.image |> Maybe.withDefault "") ] []
                                 ]
                             ]
