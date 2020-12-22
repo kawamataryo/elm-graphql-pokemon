@@ -76,48 +76,50 @@ view model =
     div [ class Bulma.container ]
         [ img [ src "https://i.gyazo.com/480551bded5134ddacf08616b2595717.png" ] []
         , h1 [ class Bulma.title, class Bulma.is4, class Bulma.mb6 ] [ text "Pokemons with elm-graphql" ]
-        , renderPokemons model.pokemons
+        , renderPokemonsList model.pokemons
         ]
 
 
-renderPokemons : PokemonData -> Html Msg
-renderPokemons pokemonData =
+renderPokemonsList : PokemonData -> Html Msg
+renderPokemonsList pokemonData =
+    let
+        renderPokemon pokemon =
+            div [ class Bulma.card ]
+                [ div [ class Bulma.cardImage ]
+                    [ figure [ class Bulma.image, class Bulma.is16by9, class Bulma.mx5, class Bulma.mt5 ]
+                        [ img [ src (pokemon.image |> Maybe.withDefault "") ] []
+                        ]
+                    ]
+                , div [ class Bulma.cardContent ]
+                    [ p [ class Bulma.isSize4 ] [ text (pokemon.name |> Maybe.withDefault "") ]
+                    ]
+                ]
+
+        renderPokemons maybePokemons =
+            maybePokemons
+                |> Maybe.withDefault []
+                |> List.map
+                    (\maybePokemon ->
+                        div [ class Bulma.column, class Bulma.is3 ]
+                            [ maybePokemon
+                                |> Maybe.map renderPokemon
+                                |> Maybe.withDefault (text "")
+                            ]
+                    )
+                |> div [ class Bulma.columns, class Bulma.isMultiline ]
+    in
     case pokemonData of
         RemoteData.NotAsked ->
             p [ class Bulma.isSize4, class Bulma.hasTextCentered ] [ text "not" ]
 
-        RemoteData.Success maybePokemonsList ->
-            maybePokemonsList
-                |> Maybe.withDefault []
-                |> List.map renderPokemon
-                |> div [ class Bulma.columns, class Bulma.isMultiline ]
+        RemoteData.Success maybePokemons ->
+            renderPokemons maybePokemons
 
         RemoteData.Loading ->
             p [ class Bulma.isSize4, class Bulma.hasTextCentered ] [ text "loading..." ]
 
         RemoteData.Failure err ->
             p [ class Bulma.isSize4, class Bulma.hasTextCentered ] [ text "Error" ]
-
-
-renderPokemon : Maybe Pokemon -> Html Msg
-renderPokemon maybePokemon =
-    div [ class Bulma.column, class Bulma.is3 ]
-        [ maybePokemon
-            |> Maybe.map
-                (\pokemon ->
-                    div [ class Bulma.card ]
-                        [ div [ class Bulma.cardImage ]
-                            [ figure [ class Bulma.image, class Bulma.is16by9, class Bulma.mx5, class Bulma.mt5 ]
-                                [ img [ src (pokemon.image |> Maybe.withDefault "") ] []
-                                ]
-                            ]
-                        , div [ class Bulma.cardContent ]
-                            [ p [ class Bulma.isSize4 ] [ text (pokemon.name |> Maybe.withDefault "") ]
-                            ]
-                        ]
-                )
-            |> Maybe.withDefault (text "")
-        ]
 
 
 
